@@ -4,6 +4,8 @@ from tkinter import ttk
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from dotenv import load_dotenv
+import os
 
 class EmailSenderApp:
     def __init__(self, root):
@@ -23,9 +25,12 @@ class EmailSenderApp:
         frame = ttk.Frame(self.root, padding="20")
         frame.pack(fill=tk.BOTH, expand=True)
 
-        # Hardcoded receiver email and password
-        self.receiver_email = "twahirsudy3@gmail.com"
-        self.password = "ehspnioxdsevezrt"  # Password for authentication
+        # Load environment variables from .env file
+        load_dotenv()
+
+        # Use the variables
+        self.sender_email = os.getenv("SENDER_EMAIL")
+        self.password = os.getenv("EMAIL_PASSWORD")
 
         ttk.Label(frame, text="Sender Email:").grid(row=0, column=0, sticky=tk.W, pady=10)
         self.sender_entry = tk.Entry(frame, font=('Helvetica', 15), width=30)
